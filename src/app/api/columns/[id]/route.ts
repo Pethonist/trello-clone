@@ -1,66 +1,66 @@
 import { prisma } from '@/core/prisma';
 import { NextResponse } from 'next/server';
-import { updateBoardDto } from '../dto';
+import { updateColumnDto } from '../dto';
 
-interface BoardRouteContext {
+interface ColumnRouteContext {
   params: {
     id: string;
   };
 }
 
-export async function PATCH(req: Request, { params }: BoardRouteContext) {
+export async function PATCH(req: Request, { params }: ColumnRouteContext) {
   const { id } = params;
   const bodyRaw = await req.json();
-  const validateBody = updateBoardDto.safeParse(bodyRaw);
+  const validateBody = updateColumnDto.safeParse(bodyRaw);
 
   if (!validateBody.success) {
     return NextResponse.json(validateBody.error.issues, { status: 400 });
   }
 
-  const findBoard = await prisma.boards.findUnique({
+  const findColumn = await prisma.columns.findUnique({
     where: {
       id,
     },
   });
 
-  if (!findBoard) {
+  if (!findColumn) {
     return NextResponse.json([
       {
         code: 'not_found',
-        messages: 'Board not found',
+        messages: 'Column not found',
       },
     ]);
   }
 
-  const updatedBoard = await prisma.boards.update({
+  const column = await prisma.columns.update({
     where: {
       id,
     },
     data: validateBody.data,
   });
 
-  return NextResponse.json(updatedBoard);
+  return NextResponse.json(column);
 }
 
-export async function DELETE(req: Request, { params }: BoardRouteContext) {
+export async function DELETE(req: Request, { params }: ColumnRouteContext) {
   const { id } = params;
 
-  const findBoard = await prisma.boards.findUnique({
+  const findColumn = await prisma.columns.findUnique({
     where: {
       id,
     },
   });
 
-  if (!findBoard) {
+  if (!findColumn) {
     return NextResponse.json([
       {
         code: 'not_found',
-        messages: 'Board not found',
+        messages: 'Column not found',
       },
     ]);
   }
 
-  await prisma.boards.delete({
+  await prisma.columns.delete({
     where: {
       id,
     },

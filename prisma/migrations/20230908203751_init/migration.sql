@@ -2,7 +2,7 @@
 CREATE TABLE "Boards" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "createdAd" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Boards_pkey" PRIMARY KEY ("id")
@@ -13,9 +13,9 @@ CREATE TABLE "Columns" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "boardId" TEXT NOT NULL,
-    "border" INTEGER NOT NULL,
+    "order" INTEGER NOT NULL,
     "width" INTEGER NOT NULL,
-    "createdAd" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Columns_pkey" PRIMARY KEY ("id")
@@ -27,9 +27,9 @@ CREATE TABLE "Cards" (
     "title" TEXT NOT NULL,
     "columnId" TEXT NOT NULL,
     "description" TEXT,
-    "order" INTEGER NOT NULL,
-    "createdAd" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "order" INTEGER NOT NULL,
 
     CONSTRAINT "Cards_pkey" PRIMARY KEY ("id")
 );

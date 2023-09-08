@@ -13,9 +13,7 @@ export async function POST(req: Request) {
   const validateBody = createBoardDto.safeParse(bodyRaw);
 
   if (!validateBody.success) {
-    return NextResponse.json(validateBody.error.issues, {
-      status: 400,
-    });
+    return NextResponse.json(validateBody.error.issues, { status: 400 });
   }
 
   const { title } = validateBody.data;
