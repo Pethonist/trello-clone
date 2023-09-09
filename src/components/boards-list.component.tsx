@@ -2,7 +2,7 @@
 
 import { useBoards } from '@/hooks/use-boards';
 import { Boards } from '@prisma/client';
-import { BoardCard } from '.';
+import { BoardCard, CreateBoard } from '.';
 
 interface BoardsList {
   initialData: Boards[];
@@ -16,6 +16,7 @@ export function BoardsList({ initialData }: BoardsList) {
       {boards.map((board) => (
         <BoardCard key={board.id} id={board.id} title={board.title} />
       ))}
+      <CreateBoard />
     </div>
   );
 }
