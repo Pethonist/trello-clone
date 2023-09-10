@@ -1,6 +1,6 @@
 'use client';
 
-import { useCreateColumnMutation } from '@/hooks/use-create-column';
+import { useCreateColumnMutation } from '@/hooks/use-create-column-mutation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';

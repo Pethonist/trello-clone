@@ -1,6 +1,6 @@
 'use client';
 
-import { useCreateBoard } from '@/hooks/use-create-board';
+import { useCreateBoard } from '@/hooks/use-create-board-mutation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';

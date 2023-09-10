@@ -1,6 +1,6 @@
 'use client';
 
-import { useBoards } from '@/hooks/use-boards';
+import { useBoards } from '@/hooks/use-boards-query';
 import { Boards } from '@prisma/client';
 import { BoardCard, CreateBoard } from '.';
 
