@@ -12,12 +12,8 @@ export async function PATCH(req: Request) {
 
   const queries = validateBody.data.map(({ id, order }) =>
     prisma.cards.update({
-      where: {
-        id,
-      },
-      data: {
-        order,
-      },
+      where: { id },
+      data: { order },
     })
   );
 

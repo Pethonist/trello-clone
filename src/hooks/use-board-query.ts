@@ -27,7 +27,6 @@ export const useBoardQuery = ({ initialData }: UseBoardQueryOptions) => {
   });
 
   const [isFirstRender, setIsFirstRender] = useState(true);
-
   useEffect(() => {
     if (isFirstRender) {
       setIsFirstRender(false);
@@ -38,6 +37,18 @@ export const useBoardQuery = ({ initialData }: UseBoardQueryOptions) => {
       queryClient.setQueryData(['column', column.id], () => column);
     });
   }, [query.data]);
+
+  return query;
+};
+
+interface UseCachedBoardQueryOptions {
+  boardId: string;
+}
+
+export const useCachedBoardQuery = ({ boardId }: UseCachedBoardQueryOptions) => {
+  const query = useQuery<BoardPayload>(['board', boardId], {
+    networkMode: 'offlineFirst',
+  });
 
   return query;
 };

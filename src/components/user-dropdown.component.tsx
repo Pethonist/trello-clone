@@ -8,6 +8,7 @@ import { twMerge } from 'tailwind-merge';
 
 export function UserDropdown() {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
+
   const dropdownClasses = clsx({
     hidden: !isDropdownOpened,
     'absolute top-8 right-0': true,
@@ -20,9 +21,7 @@ export function UserDropdown() {
   const dropdownRef = useClickAway<HTMLDivElement>((e) => {
     const element = e.target as HTMLElement;
 
-    if (element.closest('#user-menu-button')) {
-      return;
-    }
+    if (element.closest('#user-menu-button')) return;
 
     setIsDropdownOpened(false);
   });

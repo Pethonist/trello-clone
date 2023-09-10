@@ -18,9 +18,7 @@ export async function PATCH(req: Request, { params }: CardRouteContext) {
   }
 
   const findCard = await prisma.cards.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   if (!findCard) {
@@ -33,9 +31,7 @@ export async function PATCH(req: Request, { params }: CardRouteContext) {
   }
 
   const card = await prisma.cards.update({
-    where: {
-      id,
-    },
+    where: { id },
     data: validateBody.data,
   });
 
@@ -46,9 +42,7 @@ export async function DELETE(req: Request, { params }: CardRouteContext) {
   const { id } = params;
 
   const findCard = await prisma.cards.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   if (!findCard) {
@@ -61,9 +55,7 @@ export async function DELETE(req: Request, { params }: CardRouteContext) {
   }
 
   await prisma.cards.delete({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   return NextResponse.json({}, { status: 200 });

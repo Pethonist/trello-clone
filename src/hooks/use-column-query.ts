@@ -2,7 +2,9 @@ import { api } from '@/core/api';
 import { Prisma } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 
-export type ColumnPayload = Prisma.ColumnsGetPayload<{ include: { cards: true } }>;
+export type ColumnPayload = Prisma.ColumnsGetPayload<{
+  include: { cards: true };
+}>;
 
 const getColumnFn = async (columnId: string) => {
   const { data } = await api.get<ColumnPayload>(`/api/columns/${columnId}`);

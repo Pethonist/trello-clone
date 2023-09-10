@@ -2,7 +2,7 @@ import { prisma } from '@/core/prisma';
 import { NextResponse } from 'next/server';
 import { updateBoardDto } from '../dto';
 
-interface BoardRouteContext {
+export interface BoardRouteContext {
   params: {
     id: string;
   };
@@ -12,17 +12,11 @@ export async function GET(req: Request, { params }: BoardRouteContext) {
   const { id } = params;
 
   const board = await prisma.boards.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
     include: {
       columns: {
-        orderBy: {
-          order: 'asc',
-        },
-        include: {
-          cards: true,
-        },
+        orderBy: { order: 'asc' },
+        include: { cards: true },
       },
     },
   });
@@ -45,15 +39,11 @@ export async function PATCH(req: Request, { params }: BoardRouteContext) {
   const validateBody = updateBoardDto.safeParse(bodyRaw);
 
   if (!validateBody.success) {
-    return NextResponse.json(validateBody.error.issues, {
-      status: 400,
-    });
+    return NextResponse.json(validateBody.error.issues, { status: 400 });
   }
 
   const findBoard = await prisma.boards.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   if (!findBoard) {
@@ -66,9 +56,7 @@ export async function PATCH(req: Request, { params }: BoardRouteContext) {
   }
 
   const updatedBoard = await prisma.boards.update({
-    where: {
-      id,
-    },
+    where: { id },
     data: validateBody.data,
   });
 
@@ -79,9 +67,7 @@ export async function DELETE(req: Request, { params }: BoardRouteContext) {
   const { id } = params;
 
   const findBoard = await prisma.boards.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   if (!findBoard) {
@@ -94,9 +80,7 @@ export async function DELETE(req: Request, { params }: BoardRouteContext) {
   }
 
   await prisma.boards.delete({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   return NextResponse.json({}, { status: 200 });

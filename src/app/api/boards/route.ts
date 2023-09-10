@@ -19,9 +19,7 @@ export async function POST(req: Request) {
   const { title } = validateBody.data;
 
   const newBoard = await prisma.boards.create({
-    data: {
-      title,
-    },
+    data: { title },
   });
 
   return NextResponse.json(newBoard);

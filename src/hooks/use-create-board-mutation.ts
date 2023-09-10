@@ -10,7 +10,7 @@ const createBoardFn = async (board: CreateBoardDto) => {
   return data;
 };
 
-export const useCreateBoard = () => {
+export const useCreateBoardMutation = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({

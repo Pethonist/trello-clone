@@ -14,9 +14,7 @@ export async function POST(req: Request) {
     where: {
       columnId: validateBody.data.columnId,
     },
-    orderBy: {
-      order: 'desc',
-    },
+    orderBy: { order: 'desc' },
   });
 
   const newCard = await prisma.cards.create({
@@ -39,7 +37,7 @@ export async function GET(req: Request) {
         {
           code: 'missing_query_param',
           field: 'columnId',
-          message: 'Query param columnId is required',
+          message: 'Query param columndId is required',
         },
       ],
       { status: 400 }
@@ -47,12 +45,8 @@ export async function GET(req: Request) {
   }
 
   const cards = await prisma.cards.findMany({
-    where: {
-      columnId,
-    },
-    orderBy: {
-      order: 'asc',
-    },
+    where: { columnId },
+    orderBy: { order: 'asc' },
   });
 
   return NextResponse.json(cards);

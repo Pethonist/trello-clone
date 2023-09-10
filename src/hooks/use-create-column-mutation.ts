@@ -24,9 +24,7 @@ export const useCreateColumnMutation = ({ boardId }: UseCreateColumnMutationOpti
     onSuccess: (newColumn) => {
       const data = queryClient.getQueryData<BoardPayload>(['board', boardId]);
 
-      if (!data) {
-        return;
-      }
+      if (!data) return;
 
       const columns = [...data.columns];
 

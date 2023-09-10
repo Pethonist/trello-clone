@@ -1,6 +1,6 @@
 'use client';
 
-import { useCreateBoard } from '@/hooks/use-create-board-mutation';
+import { useCreateBoardMutation } from '@/hooks/use-create-board-mutation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -24,7 +24,7 @@ export function CreateBoard() {
     resolver: zodResolver(createBoardSchema),
   });
 
-  const { mutateAsync } = useCreateBoard();
+  const { mutateAsync } = useCreateBoardMutation();
 
   const onSubmit = handleSubmit(async (values) => {
     await mutateAsync(values);

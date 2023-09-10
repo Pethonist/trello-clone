@@ -20,12 +20,8 @@ export async function GET(req: Request) {
   }
 
   const columns = await prisma.columns.findMany({
-    where: {
-      boardId,
-    },
-    orderBy: {
-      order: 'asc',
-    },
+    where: { boardId },
+    orderBy: { order: 'asc' },
   });
 
   return NextResponse.json(columns);
@@ -42,12 +38,8 @@ export async function POST(req: Request) {
   const { title, boardId, width } = validateBody.data;
 
   const lastColumn = await prisma.columns.findFirst({
-    where: {
-      boardId,
-    },
-    orderBy: {
-      order: 'desc',
-    },
+    where: { boardId },
+    orderBy: { order: 'desc' },
   });
 
   const newColumn = await prisma.columns.create({

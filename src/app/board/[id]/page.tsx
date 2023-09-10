@@ -1,6 +1,10 @@
 import { ColumnsList } from '@/components';
+import { api } from '@/core/api';
 import { prisma } from '@/core/prisma';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+
+export const revalidate = 0;
 
 interface PageParams {
   id: string;
@@ -10,6 +14,13 @@ interface PageProps {
   params: PageParams;
 }
 
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = params;
+  const { data: metadata } = await api(`/api/boards/${id}/metadata`);
+
+  return { title: `${metadata.title} | Trello Clone` };
+}
+
 export default async function BoardPage(props: PageProps) {
   const board = await prisma.boards.findUnique({
     where: {
@@ -17,9 +28,8 @@ export default async function BoardPage(props: PageProps) {
     },
     include: {
       columns: {
-        include: {
-          cards: true,
-        },
+        orderBy: { order: 'asc' },
+        include: { cards: true },
       },
     },
   });
@@ -30,9 +40,6 @@ export default async function BoardPage(props: PageProps) {
 
   return (
     <>
-      <div className='container mx-auto'>
-        <h1 className='text-white text-4xl text-center mb-8'>{board.title}</h1>
-      </div>
       <ColumnsList board={board} />
     </>
   );

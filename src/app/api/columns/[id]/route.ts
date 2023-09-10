@@ -12,9 +12,7 @@ export async function GET(req: Request, { params }: ColumnRouteContext) {
   const { id } = params;
 
   const column = await prisma.columns.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
     include: {
       cards: true,
     },
@@ -42,9 +40,7 @@ export async function PATCH(req: Request, { params }: ColumnRouteContext) {
   }
 
   const findColumn = await prisma.columns.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   if (!findColumn) {
@@ -57,9 +53,7 @@ export async function PATCH(req: Request, { params }: ColumnRouteContext) {
   }
 
   const column = await prisma.columns.update({
-    where: {
-      id,
-    },
+    where: { id },
     data: validateBody.data,
   });
 
@@ -70,9 +64,7 @@ export async function DELETE(req: Request, { params }: ColumnRouteContext) {
   const { id } = params;
 
   const findColumn = await prisma.columns.findUnique({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   if (!findColumn) {
@@ -85,9 +77,7 @@ export async function DELETE(req: Request, { params }: ColumnRouteContext) {
   }
 
   await prisma.columns.delete({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   return NextResponse.json({}, { status: 200 });
