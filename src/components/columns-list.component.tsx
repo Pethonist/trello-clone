@@ -1,7 +1,7 @@
 'use client';
 
 import { BoardPayload, useBoardQuery } from '@/hooks/use-board-query';
-import { CreateColumn } from './create-column.component';
+import { CreateColumn } from '.';
 
 interface ColumnsListProps {
   board: BoardPayload;
