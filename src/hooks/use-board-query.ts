@@ -27,6 +27,7 @@ export const useBoardQuery = ({ initialData }: UseBoardQueryOptions) => {
   });
 
   const [isFirstRender, setIsFirstRender] = useState(true);
+
   useEffect(() => {
     if (isFirstRender) {
       setIsFirstRender(false);
