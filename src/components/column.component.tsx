@@ -1,6 +1,7 @@
 'use client';
 
 import { ColumnPayload, useColumnQuery } from '@/hooks/use-column-query';
+import { useUpdateColumnMutation } from '@/hooks/use-update-column-mutation';
 import { DragEvent, useEffect, useRef, useState } from 'react';
 
 interface ColumnProps {
@@ -38,6 +39,12 @@ export function Column({ column }: ColumnProps) {
     });
   };
 
+  const { mutateAsync } = useUpdateColumnMutation();
+
+  const onResizeEnd = async () => {
+    await mutateAsync({ columnId: data.id, data: { width } });
+  };
+
   return (
     <div
       style={{ minWidth: width, width }}
@@ -49,6 +56,7 @@ export function Column({ column }: ColumnProps) {
           draggable
           onDragStart={onResizeStart}
           onDrag={onResize}
+          onDragEnd={onResizeEnd}
         />
       </div>
     </div>
