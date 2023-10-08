@@ -15,8 +15,16 @@ export async function GET(req: Request, { params }: BoardRouteContext) {
     where: { id },
     include: {
       columns: {
-        orderBy: { order: 'asc' },
-        include: { cards: true },
+        orderBy: {
+          order: 'asc',
+        },
+        include: {
+          cards: {
+            orderBy: {
+              order: 'asc',
+            },
+          },
+        },
       },
     },
   });

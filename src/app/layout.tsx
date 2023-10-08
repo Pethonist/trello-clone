@@ -1,5 +1,6 @@
 import { Navbar } from '@/components';
 import { ReactQueryProvider } from '@/providers';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata } from 'next';
 import './globals.css';
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ReactQueryProvider>
           <Navbar />
           {children}
+          <ReactQueryDevtools initialIsOpen={false} />
         </ReactQueryProvider>
       </body>
     </html>

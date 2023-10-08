@@ -1,7 +1,7 @@
-import { ColumnsList } from '@/components';
+import { CardDialog, ColumnsList } from '@/components';
 import { api } from '@/core/api';
 import { prisma } from '@/core/prisma';
-import { BoardProvider } from '@/providers/board.provider';
+import { BoardProvider } from '@/providers';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -19,7 +19,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { id } = params;
   const { data: metadata } = await api(`/api/boards/${id}/metadata`);
 
-  return { title: `${metadata.title} | Trello Clone` };
+  return {
+    title: `${metadata.title} | Trello Clone`,
+  };
 }
 
 export default async function BoardPage(props: PageProps) {
@@ -29,8 +31,16 @@ export default async function BoardPage(props: PageProps) {
     },
     include: {
       columns: {
-        orderBy: { order: 'asc' },
-        include: { cards: true },
+        orderBy: {
+          order: 'asc',
+        },
+        include: {
+          cards: {
+            orderBy: {
+              order: 'asc',
+            },
+          },
+        },
       },
     },
   });
@@ -42,6 +52,7 @@ export default async function BoardPage(props: PageProps) {
   return (
     <BoardProvider>
       <ColumnsList board={board} />
+      <CardDialog />
     </BoardProvider>
   );
 }

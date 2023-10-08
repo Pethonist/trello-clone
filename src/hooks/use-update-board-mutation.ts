@@ -2,7 +2,6 @@ import { UpdateBoardDto } from '@/app/api/boards/dto';
 import { api } from '@/core/api';
 import { Boards } from '@prisma/client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { BoardPayload } from './use-board-query';
 
 const updateBoardFn = async (boardId: string, data: UpdateBoardDto) => {
   const { data: board } = await api.patch<Boards>(`/api/boards/${boardId}`, data);
@@ -19,7 +18,7 @@ export const useUpdateBoardMutation = () => {
     onMutate: async (data) => {
       const previousBoard = queryClient.getQueryData(['board', data.boardId]);
 
-      queryClient.setQueryData<BoardPayload>(['board', data.boardId], (old) => ({
+      queryClient.setQueryData(['board', data.boardId], (old) => ({
         ...old!,
         ...data.data,
       }));

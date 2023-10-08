@@ -11,30 +11,22 @@ interface BoardTitleProps {
 }
 
 export function BoardTitle({ boardId }: BoardTitleProps) {
-  const { data } = useCachedBoardQuery({ boardId });
-
   const [isEditing, setIsEditing] = useState(false);
-
-  const turnOnEditing = () => {
-    if (isEditing) return;
-
-    setIsEditing(true);
-  };
-
   const titleRef = useRef<HTMLHeadingElement>(null);
 
-  useEffect(() => {
-    if (data?.title && titleRef.current) {
-      titleRef.current.innerText = data.title;
-    }
-  }, [data?.title]);
+  const { data } = useCachedBoardQuery({ boardId });
+  const { mutate } = useUpdateBoardMutation();
 
   const titleClasses = clsx({
     'cursor-pointer': !isEditing,
     'cursor-text': isEditing,
   });
 
-  const { mutate } = useUpdateBoardMutation();
+  const turnOnEditing = () => {
+    if (isEditing) return;
+
+    setIsEditing(true);
+  };
 
   const onBlur = () => {
     setIsEditing(false);
@@ -46,11 +38,17 @@ export function BoardTitle({ boardId }: BoardTitleProps) {
     });
   };
 
+  useEffect(() => {
+    if (data?.title && titleRef.current) {
+      titleRef.current.innerText = data.title;
+    }
+  }, [data?.title]);
+
   return (
     <h1
       className={twMerge(
         'text-white text-4xl text-center mb-8 font-bold transition outline-none hover:bg-black/20',
-        titleClasses,
+        titleClasses
       )}
       contentEditable={isEditing}
       onClick={turnOnEditing}

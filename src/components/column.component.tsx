@@ -3,8 +3,7 @@
 import { ColumnPayload, useColumnQuery } from '@/hooks/use-column-query';
 import { useUpdateColumnMutation } from '@/hooks/use-update-column-mutation';
 import { DragEvent, useEffect, useRef, useState } from 'react';
-import { Card } from './card.component';
-import { CreateCard } from './create-card.component';
+import { Card, CreateCard } from '.';
 
 interface ColumnProps {
   column: ColumnPayload;
@@ -14,13 +13,10 @@ const MIN_WIDTH = 200;
 
 export function Column({ column }: ColumnProps) {
   const { data } = useColumnQuery({ initialData: column });
+  const { mutateAsync } = useUpdateColumnMutation();
 
-  const initialDragX = useRef<number>(0);
   const [width, setWidth] = useState(data.width);
-
-  useEffect(() => {
-    setWidth(data.width);
-  }, [data.width]);
+  const initialDragX = useRef<number>(0);
 
   const onResizeStart = (e: DragEvent<HTMLDivElement>) => {
     initialDragX.current = e.clientX;
@@ -34,25 +30,26 @@ export function Column({ column }: ColumnProps) {
 
     setWidth((width) => {
       const newWidth = width + movedBy;
-
       if (newWidth < MIN_WIDTH) return MIN_WIDTH;
 
       return newWidth;
     });
   };
 
-  const { mutateAsync } = useUpdateColumnMutation();
-
   const onResizeEnd = async () => {
     await mutateAsync({ columnId: data.id, data: { width } });
   };
 
+  useEffect(() => {
+    setWidth(data.width);
+  }, [data.width]);
+
   return (
     <div
       style={{ minWidth: width, width }}
-      className='block w-full pb-4 border h-fit rounded-lg shadow bg-gray-800 border-gray-700 sticky top-0'>
+      className='block w-full pb-4 border h-fit rounded-lg shadow bg-gray-800 border-t-0 border-gray-700 sticky top-0'>
       <div className='sticky top-0 bg-gray-800 p-4 border-t border-gray-700 rounded-t-lg'>
-        <h5 className='text-lg font-bold tracking-tight text-white'>{data.title}</h5>
+        <h5 className='text-lg font-bold tracking-tight text-white sticky'>{data.title}</h5>
         <div
           className='absolute -right-px top-[0.5rem] bottom-[0.5rem] cursor-move w-px bg-gray-700 select-none opacity-0'
           draggable
@@ -61,7 +58,7 @@ export function Column({ column }: ColumnProps) {
           onDragEnd={onResizeEnd}
         />
       </div>
-      <div className='flex flex-col gap-4 px-4'>
+      <div className='flex gap-4 flex-col px-4'>
         {data.cards.map((card) => (
           <Card key={card.id} card={card} />
         ))}
