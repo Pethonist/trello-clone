@@ -21,7 +21,7 @@ export function Button({
   const buttonClasses = clsx(
     {
       'text-sm px-5 py-2.5': size === 'base',
-      'px-3 py-2 text-xs': size === 'xsmall',
+      'text-xs px-3 py-2': size === 'xsmall',
     },
     className
   );
