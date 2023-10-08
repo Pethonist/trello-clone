@@ -3,6 +3,7 @@
 import { ColumnPayload, useColumnQuery } from '@/hooks/use-column-query';
 import { useUpdateColumnMutation } from '@/hooks/use-update-column-mutation';
 import { DragEvent, useEffect, useRef, useState } from 'react';
+import { CreateCard } from './create-card.component';
 
 interface ColumnProps {
   column: ColumnPayload;
@@ -48,8 +49,8 @@ export function Column({ column }: ColumnProps) {
   return (
     <div
       style={{ minWidth: width, width }}
-      className='block w-full p-4 border rounded-lg shadow bg-gray-800 border-gray-700 relative'>
-      <div>
+      className='block w-full pb-4 border h-fit rounded-lg shadow bg-gray-800 border-gray-700 sticky top-0'>
+      <div className='sticky top-0 bg-gray-800 p-4 border-t border-gray-700 rounded-t-lg'>
         <h5 className='text-lg font-bold tracking-tight text-white'>{data.title}</h5>
         <div
           className='absolute -right-px top-[0.5rem] bottom-[0.5rem] cursor-move w-px bg-gray-700 select-none opacity-0'
@@ -58,6 +59,16 @@ export function Column({ column }: ColumnProps) {
           onDrag={onResize}
           onDragEnd={onResizeEnd}
         />
+      </div>
+      <div className='flex flex-col gap-4 px-4'>
+        {data.cards.map((card) => (
+          <div
+            key={card.id}
+            className='flex items-center p-3 text-base font-bold rounded-lg group cursor-pointer hover:shadow bg-gray-600 hover:bg-gray-500 text-white'>
+            {card.title}
+          </div>
+        ))}
+        <CreateCard columnId={column.id} />
       </div>
     </div>
   );
