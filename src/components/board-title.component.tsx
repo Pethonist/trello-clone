@@ -50,7 +50,7 @@ export function BoardTitle({ boardId }: BoardTitleProps) {
     <h1
       className={twMerge(
         'text-white text-4xl text-center mb-8 font-bold transition outline-none hover:bg-black/20',
-        titleClasses
+        titleClasses,
       )}
       contentEditable={isEditing}
       onClick={turnOnEditing}
