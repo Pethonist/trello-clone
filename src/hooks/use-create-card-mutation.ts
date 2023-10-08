@@ -33,6 +33,8 @@ export const useCreateCardMutation = ({ columnId }: UserCreateCardMutationOption
         cards,
       }));
 
+      queryClient.setQueryData(['card', newCard.id], () => newCard);
+
       return newCard;
     },
   });
