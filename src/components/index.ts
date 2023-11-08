@@ -14,4 +14,8 @@ export * from './input.component';
 export * from './loading.component';
 export * from './mdx-editor.component';
 export * from './navbar.component';
+export * from './resend-email.component';
+export * from './sign-in-form.component';
+export * from './sign-up-form.component';
 export * from './user-dropdown.component';
+export * from './verify-email-form.component';

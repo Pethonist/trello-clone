@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { UserDropdown } from '.';
+import { Button, UserDropdown } from '.';
 
 export function Navbar() {
   return (
@@ -10,7 +10,15 @@ export function Navbar() {
             Trello
           </span>
         </Link>
-        <UserDropdown />
+        <div className='flex gap-4'>
+          <Button size='xsmall' as='a' href='/auth/sign-up'>
+            Sign Up
+          </Button>
+          <Button size='xsmall' as='a' href='/auth/sign-in'>
+            Sign In
+          </Button>
+          <UserDropdown />
+        </div>
       </div>
     </nav>
   );

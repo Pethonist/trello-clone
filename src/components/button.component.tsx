@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -8,6 +9,9 @@ interface ButtonProps {
   size?: 'xsmall' | 'base';
   className?: string;
   type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  as?: 'button' | 'a';
+  href?: string;
 }
 
 export function Button({
@@ -17,23 +21,29 @@ export function Button({
   size = 'base',
   className,
   type = 'button',
+  disabled,
+  as = 'button',
+  href,
 }: PropsWithChildren<ButtonProps>) {
   const buttonClasses = clsx(
     {
       'text-sm px-5 py-2.5': size === 'base',
-      'text-xs px-3 py-2': size === 'xsmall',
+      'px-3 py-2 text-xs': size === 'xsmall',
     },
     className
   );
 
+  const ComponentAs = as === 'a' ? Link : as;
+
   return (
-    <button
+    <ComponentAs
       onClick={onClick}
       type={type}
-      disabled={isLoading}
+      disabled={isLoading || disabled}
       className={twMerge(
-        `text-white focus:ring-4 font-medium rounded-lg bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800 disabled:cursor-not-allowed ${buttonClasses}`
-      )}>
+        `text-white focus:ring-4 font-medium rounded-lg bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800 disabled:cursor-not-allowed disabled:hover:bg-blue-600 disabled:grayscale ${buttonClasses}`
+      )}
+      href={href as string}>
       {isLoading ? (
         <>
           <svg
@@ -57,6 +67,6 @@ export function Button({
       ) : (
         children
       )}
-    </button>
+    </ComponentAs>
   );
 }
