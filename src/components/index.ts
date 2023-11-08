@@ -11,6 +11,7 @@ export * from './create-card.component';
 export * from './create-column.component';
 export * from './dialog.component';
 export * from './input.component';
+export * from './loading.component';
 export * from './mdx-editor.component';
 export * from './navbar.component';
 export * from './user-dropdown.component';
