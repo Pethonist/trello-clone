@@ -56,8 +56,7 @@ export function SignInForm() {
     <form className='block-wrapper' onSubmit={onSubmit}>
       <h1 className='text-3xl font-bold text-white text-center'>Sign in to your account</h1>
       <p className='text-white text-center'>
-        Don't have an account?
-        <br />
+        Don't have an account?{' '}
         <Link
           href='/auth/sign-up'
           className='underline decoration-1 underline-offset-2 hover:decoration-dashed'>
